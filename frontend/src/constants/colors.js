@@ -1,0 +1,8 @@
+export const NAVY       = '#0A1628'
+export const NAVY_MID   = '#2B4C7A'
+export const NAVY_LT    = '#112240'
+export const GOLD       = '#C5A028'
+export const VIOLET     = '#3D2B56'
+export const TEXT_LT    = '#E2E8F0'
+export const DIM_LT     = '#94A3B8'
+export const CODE_LT    = '#7B90A8'

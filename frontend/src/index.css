@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary:   #E8ECEF;   /* gris perla — fondo general */
+  --color-secondary: #1E1F24;   /* sidebar */
+  --color-accent:    #C5A028;   /* dorado suavizado — solo sobre fondos oscuros */
+  --color-gold:      #C5A028;   /* dorado suavizado */
+  --color-gold-soft: #D4B84C;   /* dorado más claro para hover */
+  --color-navy:      #0A1628;   /* azul profundo — tarjetas, header, paneles */
+  --color-navy-mid:  #2B4C7A;   /* hover de tarjetas — azul más suave */
+  --color-eje:      #5B7BA0;   /* gris azulado suave — ejes académicos */
+  --color-transversal: #5A6B7C; /* gris pizarra suave — ejes transversales */
+  --color-violet:    #3D2B56;   /* hover selección */
+  --color-ink:       #111827;   /* texto sobre fondo claro */
+  --font-heading: Georgia, "Times New Roman", serif;
+}
+
+body {
+  background-color: #E8ECEF;
+  color: #111827;
+  min-height: 100vh;
+  font-size: 15px;
+}
+
+#root {
+  min-height: 100vh;
+}
