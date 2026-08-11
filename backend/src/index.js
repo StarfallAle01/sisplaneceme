@@ -1,6 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import helmet from 'helmet'
+import compression from 'compression'
+import rateLimit from 'express-rate-limit'
 
 // ─── Configuración inicial ────────────────────────────────────────────
 dotenv.config()
@@ -25,6 +28,12 @@ const PORT = process.env.PORT || 3000
 // Log de cada petición
 app.use(requestLogger)
 
+// Headers de seguridad HTTP
+app.use(helmet())
+
+// Compresión gzip/deflate para respuestas
+app.use(compression())
+
 // CORS: permitir solo el frontend configurado
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
@@ -46,12 +55,22 @@ app.get('/api/health', (_req, res) => {
   })
 })
 
+// ─── Rate limiting para endpoints de la API ─────────────────────────
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,  // 15 minutos
+  max: 100,                   // máximo 100 peticiones por IP
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Demasiadas peticiones. Intente de nuevo en 15 minutos.' },
+})
+
 // ─── Rutas públicas ───────────────────────────────────────────────────
 // (De momento, todas requieren auth. La autenticación real de login
 //  ocurre en el frontend vía Supabase directamente.)
 
 // ─── Middleware de autenticación ──────────────────────────────────────
 // Todas las rutas debajo de esta línea requieren token JWT válido
+app.use('/api', apiLimiter)
 app.use('/api', authMiddleware)
 
 // ─── Rutas protegidas ─────────────────────────────────────────────────
